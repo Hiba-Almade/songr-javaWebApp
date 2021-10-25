@@ -27,5 +27,9 @@ ___________________
 
 * `http://localhost:8080/hello` `>` to print hello world
 * `http://localhost:8080/capitalize/your text` `>` to capitalize your text and display it on the browser.
-* `http://localhost:8080/albums` `>` to show the albums.
+* `http://localhost:8080/staticalbums` `>` to show the albums that's created as static object.
+* `http://localhost:8080/albums` `>` to show the albums that's store in database.
+* * `http://localhost:8080/addalbums` `>` to add a new album to the database.
+
+
 

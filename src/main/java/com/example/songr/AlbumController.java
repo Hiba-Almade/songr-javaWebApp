@@ -1,15 +1,23 @@
 package com.example.songr;
 
+import com.example.songr.repositories.AlbumRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 
 @Controller
 public class AlbumController {
 
-    @GetMapping(value = "/albums")
+    @Autowired
+    AlbumRepository albumRepository;
+
+    @GetMapping(value = "/staticalbums")
     public String getAlbum(Model model){
         ArrayList<Album> albumList= new ArrayList<>();
         Album b1 = new Album("album 1","artist 1", 6,22,"img 1");
@@ -22,4 +30,26 @@ public class AlbumController {
         return "albums";
 
     }
+
+    @GetMapping("/albums")
+    public String getDBAlbum(Model model){
+        ArrayList<Album> albumList = (ArrayList<Album>) albumRepository.findAll();
+        model.addAttribute("albumList",albumList);
+        return "albums";
+    }
+
+    @GetMapping("/addalbum")
+    public String addAlbum(){
+        return "addAlbum";
+    }
+
+    @PostMapping("/addalbum")
+    public RedirectView addAlbum(Model model, @RequestParam(value="title") String title,@RequestParam(value="artist") String artist,
+                                              @RequestParam(value="songCount") int songCount, @RequestParam(value="length") int length,
+                                              @RequestParam(value="imageUrl") String imageUrl){
+        Album album = new Album(title,artist,songCount,length,imageUrl);
+        albumRepository.save(album);
+        return new RedirectView("/albums");
+    }
+
 }
