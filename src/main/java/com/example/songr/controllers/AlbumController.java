@@ -1,5 +1,6 @@
-package com.example.songr;
+package com.example.songr.controllers;
 
+import com.example.songr.models.Album;
 import com.example.songr.repositories.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +51,17 @@ public class AlbumController {
         Album album = new Album(title,artist,songCount,length,imageUrl);
         albumRepository.save(album);
         return new RedirectView("/albums");
+    }
+
+    @GetMapping("/albumDetail/{id}")
+    public String getAlbumDetails(){
+        return "albumDetails";
+    }
+
+    @GetMapping("/albumDetail")
+    public String getOneAlbum(Model model, @RequestParam(value="id") int id){
+        model.addAttribute("oneAlbum", albumRepository.findById(id).get());
+        return "albumDetails";
     }
 
 }

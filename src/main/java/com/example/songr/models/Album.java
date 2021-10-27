@@ -1,9 +1,7 @@
-package com.example.songr;
+package com.example.songr.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Album {
@@ -16,6 +14,8 @@ public class Album {
     private int songCount;
     private int length;
     private String imageUrl;
+    @OneToMany(mappedBy = "songsAlbum")
+    private List <Song> songList;
 
     public Album(String title, String artist, int songCount, int length, String imageUrl) {
         this.title = title;
@@ -76,6 +76,14 @@ public class Album {
         this.imageUrl = imageUrl;
     }
 
+    public List<Song> getSongList() {
+        return songList;
+    }
+
+    public void setSongList(List<Song> songs) {
+        this.songList = songs;
+    }
+
     @Override
     public String toString() {
         return "Album{" +
@@ -84,7 +92,7 @@ public class Album {
                 ", songCount=" + songCount +
                 ", length=" + length +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", songList=" + songList +
                 '}';
     }
-
 }
