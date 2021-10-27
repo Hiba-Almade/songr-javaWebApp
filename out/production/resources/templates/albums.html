@@ -14,6 +14,14 @@
   <p th:text="${album.songCount}"></p>
   <p th:text="${album.length}"></p>
   <a th:href=@{${album.imageUrl}}>Image url</a>
+<!--  <a th:href=@{/album/${album.id}>Imag==e url</a>-->
+  <form action="/albumDetail" method="GET">
+    <input hidden th:value="${album.id}" name="id">
+    <button type="submit" value="lookAtInfo">Look Full details!</button>
+    <form action="/albumDetail" method="GET">
+      <input hidden th:value="${album.id}" name="id">
+      <button type="submit" value="lookAtInfo">Look Full details!</button>
+  </form>
   <hr>
 </div>
 
