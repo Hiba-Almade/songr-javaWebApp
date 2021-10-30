@@ -4,25 +4,42 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./album.css">
+  <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
+  <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
+  <style>
+</style>
 </head>
 <body>
 
-<h3>ALBUM </h3>
-<div th:each="album : ${albumList}">
-  <p th:text=${album.title}></p>
-  <p th:text="${album.artist}"></p>
-  <p th:text="${album.songCount}"></p>
-  <p th:text="${album.length}"></p>
-  <a th:href=@{${album.imageUrl}}>Image url</a>
-<!--  <a th:href=@{/album/${album.id}>Imag==e url</a>-->
-  <form action="/albumDetail" method="GET">
-    <input hidden th:value="${album.id}" name="id">
-    <button type="submit" value="lookAtInfo">Look Full details!</button>
-    <form action="/albumDetail" method="GET">
-      <input hidden th:value="${album.id}" name="id">
-      <button type="submit" value="lookAtInfo">Look Full details!</button>
-  </form>
-  <hr>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="/" class="w3-bar-item w3-button">HOME</a>
+    <a href="/albums" class="w3-bar-item w3-button w3-hide-small"> ALBUMS</a>
+    <a href="#portfolio" class="w3-bar-item w3-button w3-hide-small"> SONGS</a>
+
+    </a>
+  </div>
+</div>
+
+
+<a href="/addalbum" target="_blank">Add new Album</a>
+<div class="card" th:each="album : ${albumList}">
+  <img th:src="${album.imageUrl}" alt="Avatar" style="width:100%">
+  <div class="container">
+    <h4 th:text="${album.title}"></h4>
+    <p th:text="${album.artist}"></p>
+    <a th:href="${'/albumDetails/'+album.id}" target="_blank">Look Full details!</a>
+
+  </div>
 </div>
 
 </body>

@@ -13,15 +13,13 @@ public class Song {
     @ManyToOne
     Album songsAlbum;
 
-    public Song(String title, int length, int trackNumber) {
+    public Song( String title, int length, int trackNumber, Album songsAlbum) {
         this.title = title;
         this.length = length;
         this.trackNumber = trackNumber;
+        this.songsAlbum = songsAlbum;
     }
-
-    public Song(){
-
-    }
+public Song(){}
 
     public int getId() {
         return id;

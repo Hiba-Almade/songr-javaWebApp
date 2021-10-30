@@ -3,9 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+.myDiv {
+  border: 5px outset lightblue;
+  background-color: white;
+  text-align: center;
+}
+</style>
 </head>
 <body>
+
 <h2 th:text="${oneAlbum.title}"></h2>
+
+<div class="myDiv">
+    <img th:src="${oneAlbum.imageUrl}" alt="Avatar" style="width:100%">
+    <div class="container">
+        <p th:text="${oneAlbum.artist}"></p>
+        <p th:text="${oneAlbum.songCount}"> song</p>
+        <p th:text="${oneAlbum.length}"></p>
+<!--        <a th:href="${'/albumDetails/'+album.id}" target="_blank">Look Full details!</a>-->
+       <p>Song list:</p>
+        <ol>
+            <div th:each="song:${oneAlbum.songList}">
+                <h2 th:text="${song.title}"></h2>
+                <h4 th:text="${song.length}"></h4>
+                <h4 th:text="${song.trackNumber}"></h4>
+                <hr>
+            </div>
+
+        </ol>
+        <form action="/addSong" method="POST">
+            <label for="title">Title: </label>
+            <input type="text" name="title" id="title">
+            <br>
+
+            <label for="length">Length:  </label>
+            <input type="number" name="length" id="length">
+            <br>
+
+            <label for="trackNumber">track Number: </label>
+            <input type="number" name="trackNumber" id="trackNumber">
+            <br>
+            <input hidden type="number" name="albumId" th:value="${oneAlbum.id}">
+
+            <input type="submit" value="Add newSong">
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

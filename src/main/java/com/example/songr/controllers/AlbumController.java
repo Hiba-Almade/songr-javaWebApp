@@ -2,10 +2,12 @@ package com.example.songr.controllers;
 
 import com.example.songr.models.Album;
 import com.example.songr.repositories.AlbumRepository;
+import com.example.songr.repositories.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
@@ -17,6 +19,9 @@ public class AlbumController {
 
     @Autowired
     AlbumRepository albumRepository;
+
+    @Autowired
+    SongRepository songRepository;
 
     @GetMapping(value = "/staticalbums")
     public String getAlbum(Model model){
@@ -53,13 +58,13 @@ public class AlbumController {
         return new RedirectView("/albums");
     }
 
-    @GetMapping("/albumDetail/{id}")
-    public String getAlbumDetails(){
-        return "albumDetails";
-    }
+//    @GetMapping("/albumDetails/{id}")
+//    public String getAlbumDetails(){
+//        return "albumDetails";
+//    }
 
-    @GetMapping("/albumDetail")
-    public String getOneAlbum(Model model, @RequestParam(value="id") int id){
+    @GetMapping("/albumDetails/{id}")
+    public String getOneAlbum(Model model,@PathVariable int id){
         model.addAttribute("oneAlbum", albumRepository.findById(id).get());
         return "albumDetails";
     }
